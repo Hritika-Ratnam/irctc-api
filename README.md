@@ -25,15 +25,8 @@ This is the API documentation for the IRCTC system. It provides endpoints for us
 **Endpoint**: `POST /auth/register`  
 **Description**: Registers a new user with the role of either `general` or `admin`.
 
-**Request Body**:
+**CURL**:
 ```json
-{
-  "username": "john_doe",
-  "password": "securepassword",
-  "role": "admin"
-}
-
-
 curl --location --request POST 'http://localhost:5000/auth/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
