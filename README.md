@@ -27,7 +27,13 @@ This is the API documentation for the IRCTC system. It provides endpoints for us
 
 **CURL**:
 ```json
-curl --location --request GET 'http://localhost:5000/bookings/details?bookingId=1' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTczODE2OTk4NiwiZXhwIjoxNzM4MTczNTg2fQ.aW7-uZLbc0CZEZQ9mpu7g9n0YeFXkTOktVcuDVg2z04'
+curl --location --request POST 'http://localhost:5000/auth/register' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "username": "john_doe",
+  "password": "securepassword",
+  "role": "admin"
+}
+'
 
 
