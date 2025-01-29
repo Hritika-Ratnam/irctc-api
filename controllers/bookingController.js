@@ -49,4 +49,47 @@ const bookSeat = async (req, res) => {
     }
 };
 
-module.exports = { bookSeat };
+const getBookingDetails = async (req, res) => {
+    try {
+        const token = req.headers["authorization"];
+        if (!token) {
+            return res.status(403).json({ message: "Forbidden: No token provided" });
+        }
+
+        const bearerToken = token.split(" ")[1];
+
+        jwt.verify(bearerToken, process.env.JWT_SECRET, async (err, decoded) => {
+            if (err) {
+                return res.status(403).json({ message: "Forbidden: Invalid or expired token" });
+            }
+
+            const { userId } = decoded;
+            const { bookingId } = req.query;
+
+            if (!bookingId) {
+                return res.status(400).json({ message: "Booking ID is required" });
+            }
+
+            const booking = await Booking.findOne({
+                where: { id: bookingId, userId },
+            });
+
+            if (!booking) {
+                return res.status(404).json({ message: "Booking not found" });
+            }
+
+            res.status(200).json({
+                bookingId: booking.id,
+                seatCount: booking.seatCount,
+                train: booking.train,
+                user: booking.user,
+                status: "Booking details fetched successfully",
+            });
+        });
+    } catch (error) {
+        console.error("Error in getBookingDetails:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+module.exports = { bookSeat, getBookingDetails };
