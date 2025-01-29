@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const registerUser = async (req, res) => {
@@ -20,4 +21,31 @@ const registerUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        const user = await User.findOne({ where: { username } });
+        if (!user) {
+            return res.status(401).json({ message: "Invalid username or password" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid username or password" });
+        }
+
+        const token = jwt.sign(
+            { userId: user.id, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+
+        res.json({ message: "Login successful", token });
+    } catch (error) {
+        console.error("Error in loginUser:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+module.exports = { registerUser, loginUser };
