@@ -26,7 +26,7 @@ This is the API documentation for the IRCTC system. It provides endpoints for us
 **Description**: Registers a new user with the role of either `general` or `admin`.
 
 **CURL**:
-```json
+```bash
 curl --location --request POST 'http://localhost:5000/auth/register' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -35,5 +35,17 @@ curl --location --request POST 'http://localhost:5000/auth/register' \
   "role": "admin"
 }
 '
+```
+### Login User
 
+**Endpoint**: `POST /auth/login`  
 
+```bash
+curl --location --request POST 'http://localhost:5000/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "username": "john_doe",
+  "password": "securepassword"
+}
+'
+```
