@@ -53,7 +53,7 @@ curl --location --request POST 'http://localhost:5000/auth/login' \
 }
 '
 ```
-### Create Train
+### Creat Train
 Description: Creates a new train. This endpoint is only accessible by admin users.
 **Endpoint**: `POST /trains/create`  
 ```bash
