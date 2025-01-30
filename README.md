@@ -1,6 +1,6 @@
-# IRCTC API Documentation_WorkIndia
+# IRCTC API_WorkIndia
 
-deploye at: ``` link https://irctc-api-qzs4.onrender.com  ```
+Deployed at: ``` link https://irctc-api-qzs4.onrender.com  ```
 
 This is the API documentation for the IRCTC system. It provides endpoints for user management, train management, booking system, and related operations.
 
